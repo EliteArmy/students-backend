@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+import mongoose from 'mongoose';
+import validator from 'validator';
 
 const studentSchema = new mongoose.Schema(
   {
@@ -12,7 +12,7 @@ const studentSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      validate(value) {
+      validate(value: string) {
         if (!validator.isEmail(value)) {
           throw new Error('Email is not valid');
         }
@@ -29,4 +29,4 @@ const studentSchema = new mongoose.Schema(
 // We define the model
 const Student = mongoose.model('Student', studentSchema);
 
-module.exports = Student;
+export default Student;

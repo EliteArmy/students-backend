@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 // We dont want to grab anything from the file
 // by calling require that file runs and ensure mangoose

@@ -5,4 +5,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .catch((error) => console.log(error));
+  .catch(error => {
+    // tslint:disable-next-line:no-console
+    console.log(error);
+  });

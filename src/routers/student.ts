@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 
-const Student = require('../models/Student');
+import Student from '../models/Student';
 
 const router = new express.Router();
 
@@ -46,7 +46,7 @@ router.get('/student', async (req, res) => {
     res.send(student);
   } catch (error) {
     res.status(500).send({
-      error: error,
+      error,
       message: `something bad happend ${error.message}`,
     });
   }
@@ -65,7 +65,7 @@ router.get('/student/:id', async (req, res) => {
 
     res.send(student);
   } catch (error) {
-    res.status(500).send({ error: error, message: 'something bad happend' });
+    res.status(500).send({ error, message: 'something bad happend' });
   }
 });
 
@@ -124,7 +124,7 @@ router.delete('/student/:id', async (req, res) => {
 
     res.send(student);
   } catch (error) {
-    res.status(500).send({ error: error, message: 'something bad happend' });
+    res.status(500).send({ error, message: 'something bad happend' });
   }
 });
 
