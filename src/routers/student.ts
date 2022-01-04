@@ -1,13 +1,13 @@
-import express from 'express';
+import { Request, Response, Router } from 'express';
 
 import Student from '../models/Student';
 
-const router = new express.Router();
+const studentRouter = Router();
 
 // //////////////////////////////////////////////
 // Creating
 // //////////////////////////////////////////////
-router.post('/student', async (req, res) => {
+studentRouter.post('/student', async (req: Request, res: Response) => {
   const student = new Student({
     ...req.body,
   });
@@ -26,21 +26,21 @@ router.post('/student', async (req, res) => {
 
 // GET /student?limit=10&skip=0
 // GET /student?sortBy=<createdAt_asc, createdAt_desc>
-router.get('/student', async (req, res) => {
+studentRouter.get('/student', async (req: Request, res: Response) => {
   const sort = {};
 
-  if (req.query.sortBy) {
-    const parts = req.query.sortBy.split(':');
-    sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
-  }
+  // if (req.query.sortBy) {
+  //   const parts = req.query.sortBy.split(':');
+  //   sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+  // }
 
   try {
     const student = await Student.find({
-      options: {
-        limit: parseInt(req.query.limit), // mangoose ignores things other than numbers
-        skip: parseInt(req.query.skip), // mangoose ignores things other than numbers
-        sort,
-      },
+      // options: {
+      //   limit: parseInt(req.query.limit), // mangoose ignores things other than numbers
+      //   skip: parseInt(req.query.skip), // mangoose ignores things other than numbers
+      //   sort,
+      // },
     });
 
     res.send(student);
@@ -52,7 +52,7 @@ router.get('/student', async (req, res) => {
   }
 });
 
-router.get('/student/:id', async (req, res) => {
+studentRouter.get('/student/:id', async (req: Request, res: Response) => {
   const _id = req.params.id;
 
   try {
@@ -72,7 +72,7 @@ router.get('/student/:id', async (req, res) => {
 // //////////////////////////////////////////////
 // Update
 // //////////////////////////////////////////////
-router.patch('/student/:id', async (req, res) => {
+studentRouter.patch('/student/:id', async (req: Request, res: Response) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = [
     'firstName',
@@ -100,7 +100,8 @@ router.patch('/student/:id', async (req, res) => {
       return res.status(404).send('Student Not found');
     }
 
-    updates.forEach(update => (student[update] = req.body[update]));
+    // updates.forEach(update => (student[update] = req.body[update]));
+
     await student.save();
 
     res.send(student);
@@ -112,7 +113,7 @@ router.patch('/student/:id', async (req, res) => {
 // //////////////////////////////////////////////
 // Delete
 // //////////////////////////////////////////////
-router.delete('/student/:id', async (req, res) => {
+studentRouter.delete('/student/:id', async (req: Request, res: Response) => {
   try {
     const student = await Student.findOneAndDelete({
       _id: req.params.id,
@@ -128,4 +129,4 @@ router.delete('/student/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default studentRouter;

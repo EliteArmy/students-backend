@@ -6,14 +6,12 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
-    "tsc": "tsc",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "env-cmd -f ./config/dev.env nodemon index.ts"
   },
   "license": "ISC",
   "dependencies": {
@@ -25,6 +23,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^17.0.6",
