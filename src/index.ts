@@ -1,8 +1,7 @@
 import app from './app';
 
-const port = process.env.PORT;
+const port = process.env.PORT || "3001";
 
 app.listen(port, () => {
-  // tslint:disable-next-line:no-console
   console.log(`Server is up on port: ${port}`);
 });

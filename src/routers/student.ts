@@ -4,6 +4,14 @@ import Student from '../models/Student';
 
 const studentRouter = Router();
 
+studentRouter.get('/', async (req: Request, res: Response) => {
+  try {
+    res.status(201).send('Hello!');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 // //////////////////////////////////////////////
 // Creating
 // //////////////////////////////////////////////
@@ -27,20 +35,20 @@ studentRouter.post('/student', async (req: Request, res: Response) => {
 // GET /student?limit=10&skip=0
 // GET /student?sortBy=<createdAt_asc, createdAt_desc>
 studentRouter.get('/student', async (req: Request, res: Response) => {
-  const sort = {};
+  // const sort = {};
 
-  // if (req.query.sortBy) {
-  //   const parts = req.query.sortBy.split(':');
-  //   sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
-  // }
+  if (req.query.sortBy) {
+    // const parts = req.query.sortBy.split(':');
+    // sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+  }
 
   try {
     const student = await Student.find({
-      // options: {
-      //   limit: parseInt(req.query.limit), // mangoose ignores things other than numbers
-      //   skip: parseInt(req.query.skip), // mangoose ignores things other than numbers
-      //   sort,
-      // },
+      options: {
+        // limit: parseInt(req.query.limit), // mangoose ignores things other than numbers
+        // skip: parseInt(req.query.skip), // mangoose ignores things other than numbers
+        // sort,
+      },
     });
 
     res.send(student);

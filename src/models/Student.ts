@@ -1,7 +1,7 @@
 import { Schema, Types, model } from 'mongoose';
 import validator from 'validator';
 
-export interface Student {
+export interface IStudent {
   _id: Types.ObjectId;
   firstName: string;
   lastName: string;
@@ -37,6 +37,10 @@ const schema = new Schema(
   }
 );
 
-const Student = model<Student>('Student', schema);
+const Student = model<IStudent>('Student', schema);
+
+schema.statics.build = (attr: IStudent) => {
+  return new Student(attr)
+}
 
 export default Student;
